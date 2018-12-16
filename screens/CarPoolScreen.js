@@ -2,12 +2,7 @@
 import * as React from 'react';
 import { Text, View,Image, TouchableOpacity,FlatList, Button, StyleSheet, ListView } from 'react-native';
 import { Constants ,WebBrowser} from 'expo';
- 
-// You can import from local files
-import AssetExample from './components/AssetExample';
 
-// or any pure javascript modules available in npm
-import { Card } from 'react-native-paper';
 
 export default class App extends React.Component {
   constructor() {
@@ -570,7 +565,6 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   name: {
-    fontFamily: 'Verdana',
     fontSize: 18
   },
   email: {
