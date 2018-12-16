@@ -4,7 +4,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import StatusScreen from '../screens/StatusScreen';
 import CarPoolScreen from '../screens/CarPoolScreen';
 
 const HomeStack = createStackNavigator({
@@ -25,12 +25,12 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const StatusStack = createStackNavigator({
+  Status: StatusScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+StatusStack.navigationOptions = {
+  tabBarLabel: 'Status',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -55,6 +55,6 @@ CarPoolStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
+  StatusStack,
   CarPoolStack,
 });
