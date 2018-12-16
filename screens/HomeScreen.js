@@ -16,7 +16,11 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
-
+  
+  constructor(props) {
+    super(props);
+    this.state = {value:8200}
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -26,48 +30,57 @@ export default class HomeScreen extends React.Component {
               source={require('../assets/images/avatar.png')}
               style={styles.welcomeImage}
             />
-            <Text>Let's go {"\n"}Cris Freeman</Text>
+            <View style={{flexDirection:'column'}}>
+            <Text style={{fontSize:30}}>Let's go {"\n"}Cris Freeman</Text>
+            <View style={{flexDirection:'row'}}>
+            <Image
+              source={require('../assets/images/coin.png')}
+              style={{width:30, height:30}}
+            />
+            <Text style={{fontSize:20}}> {this.state.value}</Text>
+            </View>
+            </View>
             
           </View>
           <View  style={{alignItems:'center'}}>
-          <Text>
+          <Text style={{fontSize:20}}>
           Choose your commute!
           </Text>
           </View>
           <View style={styles.commutesContainer}>
 
 
-            <TouchableOpacity onPress={this._handleHelpPress}>
+            <TouchableOpacity onPress={()=>this._handleHelpPress('bicycling')}>
               <Image
               source={require('../assets/images/bike.png')}
               style={styles.welcomeImage}
               />
               </TouchableOpacity>
-              <TouchableOpacity onPress={this._handleHelpPress}>
+              <TouchableOpacity onPress={()=>this._handleHelpPress('driving')}>
               <Image
               source={require('../assets/images/carro.png')}
               style={styles.welcomeImage}
               />
               </TouchableOpacity>
-              <TouchableOpacity onPress={this._handleHelpPress}>
+              <TouchableOpacity onPress={()=>this._handleHelpPress('transit')}>
               <Image
               source={require('../assets/images/bus.png')}
               style={styles.welcomeImage}
               />
               </TouchableOpacity>
-              <TouchableOpacity onPress={this._handleHelpPress}>
+              <TouchableOpacity onPress={()=>this._handleHelpPress('walking')}>
               <Image
               source={require('../assets/images/andando.png')}
               style={styles.welcomeImage}
               />
               </TouchableOpacity>
-              <TouchableOpacity onPress={this._handleHelpPress}>
+              <TouchableOpacity onPress={()=>this._handleHelpPress('bicycling')}>
               <Image
               source={require('../assets/images/trem.png')}
               style={styles.welcomeImage}
               />
               </TouchableOpacity>
-              <TouchableOpacity onPress={this._handleHelpPress}>
+              <TouchableOpacity onPress={()=>this._handleHelpPress('walking')}>
               <Image
               source={require('../assets/images/skate.png')}
               style={styles.welcomeImage}
@@ -103,14 +116,21 @@ export default class HomeScreen extends React.Component {
       );
     }
   }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://maps.google.com');
+  
+  _changeScore = (travelmode) {
+    let updateValue = travelmode==='bicyling'?50:travelmode==='walking'?50
+    this.setState(prevState =>
+    {
+      {value: prev.state.value}
+    });
   };
 
-  _handleHelpPress = () => {
+
+  _handleHelpPress = (travelmode) => {
+    this._changeScore(travelmode);
+    
     WebBrowser.openBrowserAsync(
-      'https://maps.google.com'
+      'https://www.google.com/maps/dir/?api=1&origin=153+Goularte+Way&destination=DCP+Alum+Rock+High+School'+(travelmode?('&travelmode='+travelmode):null)
     );
   };
 }
@@ -138,8 +158,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   welcomeImage: {
-    width: 100,
-    height: 80,
+    width: 120,
+    height: 120,
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,
