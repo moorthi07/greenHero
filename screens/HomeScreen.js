@@ -50,37 +50,37 @@ export default class HomeScreen extends React.Component {
           <View style={styles.commutesContainer}>
 
 
-            <TouchableOpacity onPress={()=>this._handleHelpPress('bicycling')}>
+            <TouchableOpacity onPress={()=>this._handleHelpPress('bicycling', 'bicycle')}>
               <Image
               source={require('../assets/images/bike.png')}
               style={styles.welcomeImage}
               />
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this._handleHelpPress('driving')}>
+              <TouchableOpacity onPress={()=>this._handleHelpPress('driving', 'carpool')}>
               <Image
               source={require('../assets/images/carro.png')}
               style={styles.welcomeImage}
               />
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this._handleHelpPress('transit')}>
+              <TouchableOpacity onPress={()=>this._handleHelpPress('transit', 'bus')}>
               <Image
               source={require('../assets/images/bus.png')}
               style={styles.welcomeImage}
               />
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this._handleHelpPress('walking')}>
+              <TouchableOpacity onPress={()=>this._handleHelpPress('walking', 'walking')}>
               <Image
               source={require('../assets/images/andando.png')}
               style={styles.welcomeImage}
               />
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this._handleHelpPress('transit')}>
+              <TouchableOpacity onPress={()=>this._handleHelpPress('transit', 'train')}>
               <Image
               source={require('../assets/images/trem.png')}
               style={styles.welcomeImage}
               />
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this._handleHelpPress('walking')}>
+              <TouchableOpacity onPress={()=>this._handleHelpPress('walking', 'skate')}>
               <Image
               source={require('../assets/images/skate.png')}
               style={styles.welcomeImage}
@@ -94,42 +94,23 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
   
-  _changeScore = (travelmode) => {
+  _changeScore = (travelmode, flair) => {
     let updateValue = travelmode==='bicycling'?60:travelmode==='walking'?50:travelmode==='transit'?30:10;
     console.log(updateValue);
+    let newValue = this.state.value + updateValue;
     this.setState(prevState =>
     ( {value: prevState.value+updateValue} ));
+    
+    this.props.navigation.navigate('Status', {value: newValue, travelmode: flair, pointsWon: updateValue});
   };
 
 
-  _handleHelpPress = (travelmode) => {
-    this._changeScore(travelmode);
+  _handleHelpPress = (travelmode, flair) => {
     
-    //WebBrowser.openBrowserAsync('https://www.google.com/maps/dir/?api=1&origin=153+Goularte+Way&destination=DCP+Alum+Rock+High+School'+(travelmode?('&travelmode='+travelmode):null));
+    WebBrowser.openBrowserAsync('https://www.google.com/maps/dir/?api=1&origin=153+Goularte+Way&destination=DCP+Alum+Rock+High+School'+(travelmode?('&travelmode='+travelmode):null));
     
+    this._changeScore(travelmode, flair);
   };
 }
 

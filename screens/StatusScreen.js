@@ -12,6 +12,42 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
+
+Badge = (props) => {
+     let params = props.params;
+     if (params.hasOwnProperty('pointsWon')) {
+       
+       return(
+       <View  style={{alignItems:'center', justifyContent: 'center', backgroundColor:'green', margin:10, color:'blue',flexWrap: 'wrap', borderRadius: 10,padding:5}}>
+          <View style={{flexDirection:'row',flexWrap: 'wrap'}}>
+            <Text style={{fontSize:20,color:'white',flexWrap: 'wrap', fontWeight:'bold'}}>
+            Congratulations, you just won{' '}
+            </Text>
+            <View style={{flexDirection:'row'}}>
+            <Image
+                source={require('../assets/images/coin.png')}
+                style={{width:30, height:30}}
+              />
+            <Text style={{fontSize:20,color:'white', fontWeight:'bold'}}>
+             {params.hasOwnProperty('pointsWon')?params.pointsWon:''} {'\n'}
+            </Text>
+            
+             </View>
+          <Text style={{fontSize:20,color:'white',flexWrap: 'wrap', fontWeight:'bold'}}>
+          by commuting through {}
+          </Text>
+          <Text style={{fontSize:20,color:'red',flexWrap: 'wrap', fontWeight:'bold'}}>
+            {' '+params.hasOwnProperty('travelmode')?params.travelmode:''}
+          </Text>
+          <Text style={{fontSize:20,color:'white',flexWrap: 'wrap', fontWeight:'bold'}}>
+          !
+          </Text>
+          </View>
+          </View>);
+     }
+     else return (null);
+  }
+
 export default class StatusScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -19,9 +55,37 @@ export default class StatusScreen extends React.Component {
   
   constructor(props) {
     super(props);
-    this.state = {value:8200}
+    this.state = {value:8200, travelmode: null}
+    if(!this.props.navigation.state.params)
+    this.props.navigation.state.params = {value: 8200, travelmode: 0, pointsWon: 0}
   }
+  
+  componentDidMount() {
+    
+    let params = this.props.navigation.state.params;
+    if(this.state.value===(params.hasOwnProperty('value')?params.value:null))
+      return;
+    
+    this.setState({value:params.hasOwnProperty('value')?params.value:0, travelmode: params.hasOwnProperty('travelmode')?params.travelmode:''});
+    console.log('eeee');
+    
+  }
+  
+  componentDidUpdate() {
+   let params = this.props.navigation.state.params;
+    if(this.state.value===(params.hasOwnProperty('value')?params.value:null))
+      return;
+    
+    this.setState({value:params.hasOwnProperty('value')?params.value:0, travelmode: params.hasOwnProperty('travelmode')?params.travelmode:''});
+    console.log('eeee');
+  }
+  
+  
+  
+  
   render() {
+    
+    let params = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -31,62 +95,21 @@ export default class StatusScreen extends React.Component {
               style={styles.welcomeImage}
             />
             <View style={{flexDirection:'column'}}>
-            <Text style={{fontSize:30}}>Let's go {"\n"}Cris Freeman</Text>
-            <View style={{flexDirection:'row'}}>
-            <Image
-              source={require('../assets/images/coin.png')}
-              style={{width:30, height:30}}
-            />
-            <Text style={{fontSize:20}}> {this.state.value}</Text>
-            </View>
+                <Text style={{fontSize:30}}>Let's go {"\n"}Cris Freeman</Text>
+              <View style={{flexDirection:'row'}}>
+                <Image
+                  source={require('../assets/images/coin.png')}
+                  style={{width:30, height:30}}
+                />
+                <Text style={{fontSize:20}}> {this.state.value}</Text>
+              </View>
             </View>
             
           </View>
-          <View  style={{alignItems:'center'}}>
-          <Text style={{fontSize:20}}>
-          Choose your commute!
-          </Text>
-          </View>
-          <View style={styles.commutesContainer}>
-
-
-            <TouchableOpacity onPress={()=>this._handleHelpPress('bicycling')}>
-              <Image
-              source={require('../assets/images/bike.png')}
-              style={styles.welcomeImage}
-              />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this._handleHelpPress('driving')}>
-              <Image
-              source={require('../assets/images/carro.png')}
-              style={styles.welcomeImage}
-              />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this._handleHelpPress('transit')}>
-              <Image
-              source={require('../assets/images/bus.png')}
-              style={styles.welcomeImage}
-              />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this._handleHelpPress('walking')}>
-              <Image
-              source={require('../assets/images/andando.png')}
-              style={styles.welcomeImage}
-              />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this._handleHelpPress('bicycling')}>
-              <Image
-              source={require('../assets/images/trem.png')}
-              style={styles.welcomeImage}
-              />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this._handleHelpPress('walking')}>
-              <Image
-              source={require('../assets/images/skate.png')}
-              style={styles.welcomeImage}
-              />
-              </TouchableOpacity>
-          </View>
+          <Badge params={params}/>
+            
+          
+          
         </ScrollView>
 
       
@@ -125,14 +148,6 @@ export default class StatusScreen extends React.Component {
     });
   };
 
-
-  _handleHelpPress = (travelmode) => {
-    this._changeScore(travelmode);
-    
-    WebBrowser.openBrowserAsync(
-      'https://www.google.com/maps/dir/?api=1&origin=153+Goularte+Way&destination=DCP+Alum+Rock+High+School'+(travelmode?('&travelmode='+travelmode):null)
-    );
-  };
 }
 
 const styles = StyleSheet.create({
