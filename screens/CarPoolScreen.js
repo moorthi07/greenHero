@@ -1,3 +1,4 @@
+// https://snack.expo.io/SkcXG97g4
 import * as React from 'react';
 import { Text, View,Image, TouchableOpacity,FlatList, Button, StyleSheet, ListView } from 'react-native';
 import { Constants ,WebBrowser} from 'expo';
@@ -535,7 +536,7 @@ export default class App extends React.Component {
             </View>
             <View style={{flex: 1, flexDirection: 'row'}}>
              <Button  style={styles.btn} title="View" onPress = { this. onPress = () => this.alertItemName(item)}  />
-              <Button style={styles.btn} title="Add Stop" onPress = { this.onButtonPress } />
+              <Button style={styles.btn} title="Join" onPress = { this.onButtonPress } />
               </View> 
                <TouchableOpacity onPress={()=>this._handleHelpPress('walking')}>
            
@@ -556,7 +557,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    // backgroundColor: '#F5FCFF',
   },
   h2text: {
     marginTop: 10, 
@@ -573,7 +574,8 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   email: {
-    color: 'red'
+    color: 'red',
+    paddingTop: 5, 
   },
   btn:{
     color:"#90A4AE",
