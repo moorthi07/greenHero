@@ -84,7 +84,7 @@ export default class App extends React.Component {
      
     
     WebBrowser.openBrowserAsync(
-      'https://www.google.com/maps/dir/?api=1&origin=153+Goularte+Way&destination=DCP+Alum+Rock+High+School'+(travelmode?('&travelmode='+travelmode):null)
+      'https://www.google.com/maps/dir/?api=1&origin=153+Goularte+Way&destination=DCP+Alum+Rock+High+School' 
     );
   };
 
