@@ -1,22 +1,59 @@
-import * as React from 'react';
-import { Text, View,Image, TouchableOpacity,FlatList, Button, StyleSheet, ListView } from 'react-native';
-import { Constants ,WebBrowser} from 'expo';
- 
-// You can import from local files
-import AssetExample from './components/AssetExample';
+// [
+//   {
+//     'repeat(5, 10)': {
+//       _id: '{{objectId()}}',
+//       index: '{{index()}}',
+//       guid: '{{guid()}}',
+//       isActive: '{{bool()}}', 
+//       picture: 'http://placehold.it/32x32', 
+//       routename: { 
+//         start: '{{street()}}',
+//         cross: '{{street()}}'
+//       }, 
+//       stops: [{
+//        'repeat(0,5)': {
+//           address: '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}'
+//       } }
+//       ],
+//       seats: '{{integer(0, 5)}}',
+//       rank: '{{integer(0, 5)}}',
+//        driver: '{{firstName()}} {{surname()}}',
+//       email(tags) {
+//         return `${this.driver}.${this.driver}@${this.company}${tags.domainZone()}`.toLowerCase();
+//       },
+//       phone: '+1 {{phone()}}',  
+//       registered: '{{moment(this.date(new Date(2014, 0, 1), new Date())).format("LLLL")}}',
+//       routedata: [
+//       {latitude: '{{floating(-90.000001, 90)}}',
+//       longitude: '{{floating(-180.000001, 180)}}',
+//       }
+      
+//       ],
+//       tags: [
+//         {
+//           'repeat(5)': '{{lorem(1, "words")}}'
+//         }
+//       ], 
+//       friends: [
+//         {
+//           'repeat(0,5)': {
+//             id: '{{index()}}',
+//             name: '{{firstName()}} {{surname()}}'
+//           }
+//         }
+//       ],
+//       greeting(tags) {
+//         return `Hello, ${this.driver }! You have ${tags.integer(5, 10)} unread messages.`;
+//       },
+//       favoriteFruit(tags) {
+//         const fruits = ['apple', 'banana', 'strawberry'];
+//         return fruits[tags.integer(0, fruits.length - 1)];
+//       }
+//     }
+//   }
+// ]
 
-// or any pure javascript modules available in npm
-import { Card } from 'react-native-paper';
-
-export default class App extends React.Component {
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-     
-    "users": 
- [
+[
   {
     "_id": "5c1606965ece172c7ede51a7",
     "index": 0,
@@ -499,124 +536,3 @@ export default class App extends React.Component {
     "favoriteFruit": "strawberry"
   }
 ]
- 
-    };
-  }
-  
-
-
-  _handleNamePress = () => {
-     
-    
-    WebBrowser.openBrowserAsync(
-      'https://www.google.com/maps/dir/?api=1&origin=153+Goularte+Way&destination=DCP+Alum+Rock+High+School' 
-    );
-  };
-
-   alertItemName = (item) => {
-      alert(item.routename.start +"-" + item.routename.cross, item.driver,item.isActive)
-   }
-  render() {
-    return (
-      <View style={styles.container} >
-        <Text style={styles.h2text}>
-          CarPool Routes
-        </Text>
-          <FlatList
-          data={this.state.users}
-          showsVerticalScrollIndicator={false}
-          renderItem={({item}) =>
-          <View style={styles.flatview}>
-            <Text onPress = { this. _handleNamePress }  style={styles.name}>{item.routename.start} - {item.routename.cross}</Text>
-             <View style={{flex: 1, flexDirection: 'column'}}>
-            <Text style={styles.email}>Stops: {item.stops.length}</Text>
-            <Text style={styles.email}>seats: {item.seats}</Text>
-            <Text style={styles.email}>Available: {(item.isActive) ? "Yes" : "No"}</Text>
-            </View>
-            <View style={{flex: 1, flexDirection: 'row'}}>
-             <Button  style={styles.btn} title="View" onPress = { this. onPress = () => this.alertItemName(item)}  />
-              <Button style={styles.btn} title="Add Stop" onPress = { this.onButtonPress } />
-              </View> 
-               <TouchableOpacity onPress={()=>this._handleHelpPress('walking')}>
-           
-               </TouchableOpacity>
-          </View>
-          }
-          keyExtractor={item => item.email}
-        />
-      </View>
-    );
-  
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  h2text: {
-    marginTop: 10, 
-    fontSize: 36,
-    fontWeight: 'bold',
-  },
-  flatview: {
-    justifyContent: 'center',
-    paddingTop: 30,
-    borderRadius: 2,
-  },
-  name: {
-    fontFamily: 'Verdana',
-    fontSize: 18
-  },
-  email: {
-    color: 'red'
-  },
-  btn:{
-    color:"#90A4AE",
-    backgroundColor: 'red',
-  }
-});
-
-  //  return (
-          // <Image
-          //     source={require('../assets/images/skate.png')}
-          //     style={styles.flatview}
-          //     />
-    //    <View>
-    //         {
-    //            this.state.names.map((item, index) => (
-    //               <View
-    //                  key = {item.id}
-    //                  style = {styles.container}
-    //                  onPress = {() => this.alertItemName(item)}>
-    //                  <Text  style = {styles.text}>
-    //                     {item.name}
-    //                  </Text>
-    //                  <Text style = {styles.text}>
-    //                    Change code ddin the editor and watch it change on your phone! Save to get a shareable url.
-    //                  </Text>
-    //                  <Text style = {styles.text}>
-    //                     {item.name}
-    //                  </Text>
-                   
-    //               </View>
-    //            ))
-    //         }
-    //      </View>
-    // );
-    
-    // return (
-
-    //   <View style={styles.container}>
-    //     <Text style={styles.paragraph}>
-    //       Change code ddin the editor and watch it change on your phone! Save to get a shareable url.
-    //     </Text>
-        // <Card>
-        //   <AssetExample />
-        // </Card>
-    //   </View>
-    // );
