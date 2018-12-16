@@ -27,35 +27,56 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
             />
             <Text>Let's go {"\n"}Cris Freeman</Text>
+            
           </View>
-
-          <View style={styles.getStartedContainer}>
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
+          <View  style={{alignItems:'center'}}>
+          <Text>
+          Choose your commute!
+          </Text>
           </View>
+          <View style={styles.commutesContainer}>
 
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
+
+            <TouchableOpacity onPress={this._handleHelpPress}>
+              <Image
+              source={require('../assets/images/bike.png')}
+              style={styles.welcomeImage}
+              />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._handleHelpPress}>
+              <Image
+              source={require('../assets/images/carro.png')}
+              style={styles.welcomeImage}
+              />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._handleHelpPress}>
+              <Image
+              source={require('../assets/images/bus.png')}
+              style={styles.welcomeImage}
+              />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._handleHelpPress}>
+              <Image
+              source={require('../assets/images/andando.png')}
+              style={styles.welcomeImage}
+              />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._handleHelpPress}>
+              <Image
+              source={require('../assets/images/trem.png')}
+              style={styles.welcomeImage}
+              />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._handleHelpPress}>
+              <Image
+              source={require('../assets/images/skate.png')}
+              style={styles.welcomeImage}
+              />
+              </TouchableOpacity>
           </View>
         </ScrollView>
 
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
+      
       </View>
     );
   }
@@ -84,12 +105,12 @@ export default class HomeScreen extends React.Component {
   }
 
   _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
+    WebBrowser.openBrowserAsync('https://maps.google.com');
   };
 
   _handleHelpPress = () => {
     WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
+      'https://maps.google.com'
     );
   };
 }
@@ -123,7 +144,10 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginLeft: -10,
   },
-  getStartedContainer: {
+  commutesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
     alignItems: 'center',
     marginHorizontal: 50,
   },
