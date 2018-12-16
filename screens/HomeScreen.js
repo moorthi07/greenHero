@@ -117,8 +117,8 @@ export default class HomeScreen extends React.Component {
     }
   }
   
-  _changeScore = (travelmode) {
-    let updateValue = travelmode==='bicyling'?50:travelmode==='walking'?50
+  _changeScore = (travelmode) => {
+    let updateValue = travelmode==='bicyling'?60:travelmode==='walking'?50:travelmode==='transit'?30:10;
     this.setState(prevState =>
     {
       {value: prev.state.value}
