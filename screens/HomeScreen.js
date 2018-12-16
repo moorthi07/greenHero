@@ -74,7 +74,7 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
               />
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this._handleHelpPress('bicycling')}>
+              <TouchableOpacity onPress={()=>this._handleHelpPress('transit')}>
               <Image
               source={require('../assets/images/trem.png')}
               style={styles.welcomeImage}
@@ -118,20 +118,18 @@ export default class HomeScreen extends React.Component {
   }
   
   _changeScore = (travelmode) => {
-    let updateValue = travelmode==='bicyling'?60:travelmode==='walking'?50:travelmode==='transit'?30:10;
+    let updateValue = travelmode==='bicycling'?60:travelmode==='walking'?50:travelmode==='transit'?30:10;
+    console.log(updateValue);
     this.setState(prevState =>
-    {
-      {value: prev.state.value}
-    });
+    ( {value: prevState.value+updateValue} ));
   };
 
 
   _handleHelpPress = (travelmode) => {
     this._changeScore(travelmode);
     
-    WebBrowser.openBrowserAsync(
-      'https://www.google.com/maps/dir/?api=1&origin=153+Goularte+Way&destination=DCP+Alum+Rock+High+School'+(travelmode?('&travelmode='+travelmode):null)
-    );
+    //WebBrowser.openBrowserAsync('https://www.google.com/maps/dir/?api=1&origin=153+Goularte+Way&destination=DCP+Alum+Rock+High+School'+(travelmode?('&travelmode='+travelmode):null));
+    
   };
 }
 
